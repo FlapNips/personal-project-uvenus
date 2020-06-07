@@ -23,5 +23,11 @@ module.exports = app => {
 		console.log(teste)
 
 	}
-	return { existsOrError, notExistsOrError, existsInDatabase}
+	existsInDatabase = (selectColumn, whereColumn, valueA) => {
+		return app.db('users')	
+				.select(selectColumn)
+				.where(`${whereColumn}`, valueA)
+				.first()
+	}
+	return { existsOrError, notExistsOrError, existsInDatabase }
 }

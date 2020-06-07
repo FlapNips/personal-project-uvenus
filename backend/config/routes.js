@@ -1,5 +1,5 @@
 module.exports = app => {
 	app.route('/user')
-		app.post(app.api.user.saveOrUpdate)
-		app.remove(app.api.user.remove)
+		.post(app.api.user.saveOrUpdate)
+		.delete(app.api.user.removeUser)
 }

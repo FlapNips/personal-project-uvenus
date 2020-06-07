@@ -89,5 +89,5 @@ module.exports = app => {
 	
 	
 	}
-	return { saveOrUpdate }
+	return { saveOrUpdate, remove }
 }

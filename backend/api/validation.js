@@ -1,6 +1,5 @@
 module.exports = app => {
 	existsOrError = (param1, error) => {
-		if(typeof param1=== 'object' && Object.keys(param1) === undefined) throw error
 		if(typeof param1=== 'object' && Object.keys(param1).length === 0 ) throw error
 		if(!param1) throw error
 		if(Array.isArray(param1 && param1.lenght === 0)) throw error
@@ -9,7 +8,7 @@ module.exports = app => {
 
 	notExistsOrError = (param1, error) => {
 		try {
-			existOrError(param1, error) //Se passar, significa que existe
+			existsOrError(param1, error) //Se passar, significa que existe
 		}catch {
 			return //se der erro acontecerá nada
 		}

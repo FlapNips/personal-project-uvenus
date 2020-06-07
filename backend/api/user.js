@@ -35,25 +35,19 @@ module.exports = app => {
 		user.username = user.username.toLowerCase()
 		user.email = user.email.toLowerCase()
 
-		//VALIDAÇÂO DE EXISTENCIA
-		validateUsername = () => {
+		//VALIDAÇÂO DE EXISTENCIA NO BANCO DE DADOS
+		existInDatabase = (column, value) => {
 			return app.db('users')	
-					.select('username')
-					.where({ username: user.username })
-					.first()
-
-		}
-		validadeEmail = () => {
-			return app.db('users')	
-					.select('email')
-					.where({ email: user.email })
+					.select(column)
+					.where({ email: value })
+					.orWhere({ username: value })
 					.first()
 		}
 
 		try {
 			//VALIDAÇÂO
-			notExistsOrError(await validateUsername(), 'Usuário cadastrado!')
-			notExistsOrError(await validadeEmail(), 'Email cadastrado!')
+			notExistsOrError(await existInDatabase('username', user.username), 'Usuário cadastrado!')
+			notExistsOrError(await existInDatabase('email', user.email), 'Email cadastrado!')
 
 			//CRIPTOGRAFAR SENHA E RETIRAR A CONFIRMAÇAO ANTES DO ENVIO
 			user.password = encryptPassword(user.password)
@@ -81,6 +75,10 @@ module.exports = app => {
 		
 
 	}
-
+	const remove = (req, res) => {
+		
+	
+	
+	}
 	return { saveOrUpdate }
 }

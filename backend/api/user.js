@@ -76,7 +76,16 @@ module.exports = app => {
 
 	}
 	const remove = (req, res) => {
-		
+		user = { ...req.body }
+
+		try {
+			existsOrError(user.user_id, 'É necessário o ID do usuário')
+			app.db('users')
+				.where({ user_id: user.user_id })
+				.del()
+		} catch(error) {
+			return res.status(400).send(error)
+		}
 	
 	
 	}

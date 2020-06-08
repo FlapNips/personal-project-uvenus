@@ -23,8 +23,6 @@ module.exports = app => {
 				existsOrError(user.email, 'Email não definido!')
 				existsOrError(user.password, 'Defina uma senha!')
 				existsOrError(user.confirmPassword, 'Repita sua senha!')
-				existsOrError(user.age, 'Idade não definido!')
-				existsOrError(user.full_name, 'Nome Completo não definido!')
 				if(user.password !== user.confirmPassword) throw 'Senhas não conferem!'
 
 
@@ -42,7 +40,7 @@ module.exports = app => {
 			if(user.user_id) { //UPDATE
 				user.username = undefined
 				user.email = undefined
-				user.created_in = dateAndTime()
+				user.created_in = 
 				console.log(user)
 				//UPDATE
 				existsOrError(
@@ -81,26 +79,27 @@ module.exports = app => {
 
 		}
 	}
-	const removeUser = async (req, res) => {
+	const deletedUser = async (req, res) => {
 		const { onlyDate, onlyTime, dateAndTime } = app.api.date
-		user = { ...req.body }
-
-		//TRANSFORMAÇÂO DADOS EM MINUSCULO
+		user = {}
+		user.user_id = await req.body.user_id 
+		user.deleted = await req.body.deleted
 
 		try {
 			existsOrError(user.user_id, 'É necessário o ID do usuário')
+			if(user.deleted===undefined) throw 'Defina VERDADEIRO ou FALSO'
 			existsOrError(await existsInDatabase('users', 'user_id', 'user_id', user.user_id)
 			, 'ID não encontrado para remover')
 			await app.db('users')
-					.update({'deleted_at': true})
+					.update({'deleted': user.deleted})
 					.where({ user_id: user.user_id })
 					.then(() => res.status(202))
 					.catch(error => res.status(400).send(error))
+			return res.send('Usuário apagado')
 		} catch(error) {
 			return res.status(400).send(error)
 		}
-		return res.send('Usuário apagado')
 	
 	}
-	return { saveOrUpdate, removeUser }
+	return { saveOrUpdate, deletedUser }
 }

@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
 	const { existsOrError, notExistsOrError, existsInDatabase } = app.api.validation
+	const { onlyDate, onlyTime, dateAndTime } = app.api.date
 
 	const saveOrUpdate = async (req, res) => {		
 		const user = { ...req.body }
@@ -11,11 +12,9 @@ module.exports = app => {
 			return bcrypt.hashSync(password, salt)
 		}
 
-		console.log(await existsInDatabase('user_id', 'user_id', 1))
 		//TRANSFORMAÇÂO DADOS EM MINUSCULO
-		user.username = user.username.toLowerCase()
-		user.email = user.email.toLowerCase()
-
+		if(user.username) user.username = user.username.toLowerCase()
+		if(user.email) user.email = user.email.toLowerCase()
 		//CREATE
 		if(!user.user_id){
 			//VALIDACAO PARA CREATE
@@ -38,42 +37,65 @@ module.exports = app => {
 		user.password = encryptPassword(user.password)
 		delete user.confirmPassword
 		
-		try {
 			//SERA UM UPDATE OU CREATE ???
-			if(user.user_id) { 
+		try {
+			if(user.user_id) { //UPDATE
+				user.username = undefined
+				user.email = undefined
+				user.created_in = dateAndTime()
+				console.log(user)
 				//UPDATE
+				existsOrError(
+				await existsInDatabase('users','user_id', 'user_id', user.user_id), 
+				'ID não encontrado!')
 				app.db('users')
 					.update(user)
 					.where({user_id: user.user_id})
-					.then(()=> res.status(204).send())
-					.catch(error=> res.status(500).send('ERRO AO ATUALIZAR!'))
+					.then(() => res.status(204))
+					.catch(error => res.status(500).send(error))
+
 				return res.send('Update com sucesso')
-			} else { 	
-				//VALIDAÇÂO
-				notExistsOrError(await existsInDatabase('username','username', user.username), 'Usuário já está cadastrado!')
-				notExistsOrError(await existsInDatabase('email','email', user.email), 'Email já cadastrado!')
-				//CREATE
+
+			} else { 	//CREATE
+				
+					//VALIDAÇÂO
+				notExistsOrError(await existsInDatabase('users', 'username','username', user.username),
+				'Usuário já está cadastrado!')
+
+				notExistsOrError(await existsInDatabase('users', 'email','email', user.email),
+				'Email já cadastrado!')
+
+				user.deleted_at = false
+				user.created_in = dateAndTime()
+
+				console.log(await user)
 				app.db('users')
 					.insert(user)
-					.then(() => res.status(204).send())
+					.then(() => res.status(204).res.send('Criado com sucesso'))
 					.catch(error => res.status(500).send(error))
-				return res.send('Criado com sucesso')
-	
+				return
 			}
 		} catch (error) {
-			return res.status(201).send(error)
-		}
-		
 
+			return res.status(201).send(error)
+
+		}
 	}
 	const removeUser = async (req, res) => {
+		const { onlyDate, onlyTime, dateAndTime } = app.api.date
 		user = { ...req.body }
-		console.log(user)
+
+		//TRANSFORMAÇÂO DADOS EM MINUSCULO
+
 		try {
 			existsOrError(user.user_id, 'É necessário o ID do usuário')
+			existsOrError(await existsInDatabase('users', 'user_id', 'user_id', user.user_id)
+			, 'ID não encontrado para remover')
 			await app.db('users')
+					.update({'deleted_at': true})
 					.where({ user_id: user.user_id })
-					.del()
+					.then(() => res.status(202))
+					.catch(error => res.status(400).send(error))
 		} catch(error) {
 			return res.status(400).send(error)
 		}

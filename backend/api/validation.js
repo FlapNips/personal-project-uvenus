@@ -23,8 +23,8 @@ module.exports = app => {
 		console.log(teste)
 
 	}
-	existsInDatabase = (selectColumn, whereColumn, valueA) => {
-		return app.db('users')	
+	existsInDatabase = (table, selectColumn, whereColumn, valueA) => {
+		return app.db(table)	
 				.select(selectColumn)
 				.where(`${whereColumn}`, valueA)
 				.first()

@@ -4,8 +4,9 @@ module.exports = app => {
 	const { existsOrError, notExistsOrError, existsInDatabase } = app.api.validation
 	const { onlyDate, onlyTime, dateAndTime } = app.api.date
 
-	const saveOrUpdate = async (req, res) => {		
+	const saveOrUpdateMain = async (req, res) => {		
 		const user = { ...req.body }
+		delete user.deleted
 		
 		const encryptPassword = password => {
 			let salt = bcrypt.genSaltSync(10)
@@ -81,8 +82,8 @@ module.exports = app => {
 	}
 	const deletedUser = async (req, res) => {
 		const { onlyDate, onlyTime, dateAndTime } = app.api.date
-		user = {}
-		user.user_id = await req.body.user_id 
+		let user = {}
+		user.user_id = await req.params.user_id
 		user.deleted = await req.body.deleted
 
 		try {
@@ -101,5 +102,32 @@ module.exports = app => {
 		}
 	
 	}
-	return { saveOrUpdate, deletedUser }
+	const bannedUser = (req, res) => {
+		let user = {}
+		user.user_id = req.params.user_id
+		user.deleted = req.body.deleted
+		
+		try {
+			if(user.deleted === undefined) throw 'Defina se o usuário será deletado ou não'
+		} catch(error) {
+			return res.status(400).send(error)
+		}
+		return
+	}
+	const saveOrUpdatePersonal = async (req, res) => {
+		const personal = { ...req.body }
+		try {
+			existsOrError(personal.full_name, 'Digite seu nome completo')
+			existsOrError(personal.age, 'Digite sua idade')
+			existsOrError(personal.state, 'Digite seu estado')
+			existsOrError(personal.city, 'Digite sua cidade')
+			existsOrError(personal.college)
+			existsOrError(personal.course)
+			existsOrError(personal.campus)
+		
+		} catch(error) {
+			return res.status(400).send(error)
+		}
+	}
+	return { saveOrUpdateMain, deletedUser, bannedUser, saveOrUpdatePersonal }
 }

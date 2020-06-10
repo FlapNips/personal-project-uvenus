@@ -1,87 +1,107 @@
 const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
-	const { existsOrError, notExistsOrError, existsInDatabase } = app.api.validation
+	const { 
+		existsOrError, 
+		notExistsOrError, 
+		existsInDB,
+		updateValidation } = app.api.validation
 	const { onlyDate, onlyTime, dateAndTime } = app.api.date
 
-	const saveOrUpdateMain = async (req, res) => {		
+	const createUser = async (req, res) => {
 		const user = { ...req.body }
-		delete user.deleted
-		
-		const encryptPassword = password => {
-			let salt = bcrypt.genSaltSync(10)
-			return bcrypt.hashSync(password, salt)
-		}
 
-		//TRANSFORMAÇÂO DADOS EM MINUSCULO
+		//CLEAR DATA
+		delete user.user_id
+		delete user.last_update
+		user.points = 0
+		user.rank = 1
+		user.admin = false
+		user.deleted = false
+		user.created_in = dateAndTime()
+
+		//PRE DEFINITIONS
+		const encryptPassword = password => {
+				let salt = bcrypt.genSaltSync(10)
+				return bcrypt.hashSync(password, salt)
+			}
 		if(user.username) user.username = user.username.toLowerCase()
 		if(user.email) user.email = user.email.toLowerCase()
-		//CREATE
-		if(!user.user_id){
-			//VALIDACAO PARA CREATE
-			try {
-				existsOrError(user.username, 'Usuário não definido!')
-				existsOrError(user.email, 'Email não definido!')
-				existsOrError(user.password, 'Defina uma senha!')
-				existsOrError(user.confirmPassword, 'Repita sua senha!')
-				if(user.password !== user.confirmPassword) throw 'Senhas não conferem!'
 
-
-			} catch (error) {
-				return res.status(400).send(error)
-			}
-		}
-
-		//CRIPTOGRAFAR SENHA E RETIRAR A CONFIRMAÇAO ANTES DO ENVIO
-		user.password = encryptPassword(user.password)
-		delete user.confirmPassword
-		
-			//SERA UM UPDATE OU CREATE ???
+		//CONDITIONS CREATE
 		try {
-			if(user.user_id) { //UPDATE
-				user.username = undefined
-				user.email = undefined
-				user.created_in = 
-				console.log(user)
-				//UPDATE
-				existsOrError(
-				await existsInDatabase('users','user_id', 'user_id', user.user_id), 
-				'ID não encontrado!')
-				app.db('users')
-					.update(user)
-					.where({user_id: user.user_id})
-					.then(() => res.status(204))
-					.catch(error => res.status(500).send(error))
-
-				return res.send('Update com sucesso')
-
-			} else { 	//CREATE
-				
-					//VALIDAÇÂO
-				notExistsOrError(await existsInDatabase('users', 'username','username', user.username),
+			notExistsOrError(await existsInDB('users', 'username','username', user.username),
 				'Usuário já está cadastrado!')
 
-				notExistsOrError(await existsInDatabase('users', 'email','email', user.email),
+			notExistsOrError(await existsInDB('users', 'email','email', user.email),
 				'Email já cadastrado!')
-
-				user.deleted_at = false
-				user.created_in = dateAndTime()
-
-				console.log(await user)
-				app.db('users')
-					.insert(user)
-					.then(() => res.status(204).res.send('Criado com sucesso'))
-					.catch(error => res.status(500).send(error))
-				return
-			}
+			existsOrError(user.username, 		'Usuário não definido!')
+			validateUsername(user.username, 	'Usuário inválido')
+			existsOrError(user.email, 			'Email não definido!')
+			validateEmail(user.email,			'Email inválido!')
+			existsOrError(user.password, 		'Defina uma senha!')
+			existsOrError(user.confirmPassword, 'Repita sua senha!')
+			if(user.password !== user.confirmPassword) throw 'Senhas não conferem!'
 		} catch (error) {
-
-			return res.status(201).send(error)
-
+			return res.status(400).send(error)
 		}
+		//PREPARATION DATA
+		delete user.confirmPassword
+		user.password = encryptPassword(user.password)
+
+		//FINISH CREATE
+		app.db('users')
+			.insert(user)
+			.then(() => res.status(201).send('Criado com sucesso'))
+			.catch(error => res.status(500).send(error))
+		return 
 	}
+
+	const updateUser = async (req, res) => {
+		let user = { ...req.body }
+		user.user_id = parseInt(req.params.user_id)
+		
+		//VALIDATION EXISTS USER ID
+		try {
+			existsOrError(await user.user_id, 'Informe o ID')
+			existsOrError(await existsInDB('users', 'user_id', 'user_id', user.user_id), 'ID NAO EXISTE')
+		} catch(error) {
+			return res.status(400).send(error)
+		}
+		const userDB = await app.db('users')
+						.where({ user_id: user.user_id})
+						.then(data => data[0])
+						.catch(error => console.log(error))
+		//UPDATE GENERAL
+		try {
+			if(user.update_general) {
+				updateValidation.username(user.username)
+				updateValidation.password(user.password)
+				updateValidation.email(user.email)
+			}
+		} catch(error) {
+			return res.status(400).send(error)
+		}
+		//UPDATE PERSONAL INFORMATION
+		try {
+			if(user.update_personal_information) {
+				updateValidation.full_name(user.full_name)
+				updateValidation.age(user.age)
+				updateValidation.state(user.state)
+				updateValidation.city(user.state, user.city)
+				updateValidation.college(user.state, user.college)
+				updateValidation.course(user.course)		
+			}
+		} catch(error) {
+			return res.status(400).send(error)
+		}
+		//UPDATE USERS WITH ADMIN TRUE
+		
+		return res.status(200).send('Atualizado com Sucesso')
+	}
+
+
 	const deletedUser = async (req, res) => {
-		const { onlyDate, onlyTime, dateAndTime } = app.api.date
 		let user = {}
 		user.user_id = await req.params.user_id
 		user.deleted = await req.body.deleted
@@ -89,7 +109,7 @@ module.exports = app => {
 		try {
 			existsOrError(user.user_id, 'É necessário o ID do usuário')
 			if(user.deleted===undefined) throw 'Defina VERDADEIRO ou FALSO'
-			existsOrError(await existsInDatabase('users', 'user_id', 'user_id', user.user_id)
+			existsOrError(await existsInDB('users', 'user_id', 'user_id', user.user_id)
 			, 'ID não encontrado para remover')
 			await app.db('users')
 					.update({'deleted': user.deleted})
@@ -114,20 +134,6 @@ module.exports = app => {
 		}
 		return
 	}
-	const saveOrUpdatePersonal = async (req, res) => {
-		const personal = { ...req.body }
-		try {
-			existsOrError(personal.full_name, 'Digite seu nome completo')
-			existsOrError(personal.age, 'Digite sua idade')
-			existsOrError(personal.state, 'Digite seu estado')
-			existsOrError(personal.city, 'Digite sua cidade')
-			existsOrError(personal.college)
-			existsOrError(personal.course)
-			existsOrError(personal.campus)
-		
-		} catch(error) {
-			return res.status(400).send(error)
-		}
-	}
-	return { saveOrUpdateMain, deletedUser, bannedUser, saveOrUpdatePersonal }
+	
+	return { createUser, updateUser, bannedUser }
 }

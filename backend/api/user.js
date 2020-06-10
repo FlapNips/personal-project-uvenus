@@ -125,14 +125,17 @@ module.exports = app => {
 	const bannedUser = (req, res) => {
 		let user = {}
 		user.user_id = req.params.user_id
-		user.deleted = req.body.deleted
+		user.banned = req.body.banned
 		
 		try {
-			if(user.deleted === undefined) throw 'Defina se o usuário será deletado ou não'
+			existsOrError(user.user_id, 'É necessário o ID do usuário')
+			existsOrError(await existsInDB('users', 'user_id', 'user_id', user.user_id)
+			, 'ID não encontrado para remover')
+			if(user.banned === undefined) throw 'Defina se o usuário será deletado ou não'
 		} catch(error) {
 			return res.status(400).send(error)
 		}
-		return
+		return user.banned ? res.send('Banido com Sucesso') : res.send('Usuário desbanido')
 	}
 	
 	return { createUser, updateUser, bannedUser, deletedUser }

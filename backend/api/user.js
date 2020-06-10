@@ -103,23 +103,23 @@ module.exports = app => {
 
 	const deletedUser = async (req, res) => {
 		let user = {}
-		user.user_id = await req.params.user_id
-		user.deleted = await req.body.deleted
+		user.user_id = req.params.user_id
+		user.deleted = req.body.deleted
 
 		try {
 			existsOrError(user.user_id, 'É necessário o ID do usuário')
-			if(user.deleted===undefined) throw 'Defina VERDADEIRO ou FALSO'
 			existsOrError(await existsInDB('users', 'user_id', 'user_id', user.user_id)
 			, 'ID não encontrado para remover')
+			if(user.deleted===undefined) throw 'Defina VERDADEIRO ou FALSO para DELETAR CONTA'
 			await app.db('users')
 					.update({'deleted': user.deleted})
 					.where({ user_id: user.user_id })
 					.then(() => res.status(202))
-					.catch(error => res.status(400).send(error))
-			return res.send('Usuário apagado')
+					.catch(error => res.status(500).send(error))
 		} catch(error) {
 			return res.status(400).send(error)
 		}
+		return user.deleted ? res.send('Deletado com sucesso!') : res.send('Conta ativa!')
 	
 	}
 	const bannedUser = (req, res) => {
@@ -135,5 +135,5 @@ module.exports = app => {
 		return
 	}
 	
-	return { createUser, updateUser, bannedUser }
+	return { createUser, updateUser, bannedUser, deletedUser }
 }

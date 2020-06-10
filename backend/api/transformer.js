@@ -1,12 +1,23 @@
 module.exports = app => {
-	stringToBinary = (param1) => {
+	stringToBinary = (valueString) => {
 		let returnBinary = ""
 
-		for(let i = 0 ; i < param1.length ; i++) {
-			returnBinary += param1.charCodeAt(0).toString(2)
+		for(let i = 0 ; i < valueString.length ; i++) {
+			returnBinary += valueString[i].charCodeAt(0).toString(2) + " "
 		}
 	
 		return returnBinary
 	}
-	return { stringToBinary }
+
+	binaryToString = (valueBinary) => {
+		valueBinary += valueBinary.toString()
+		let returnString = ''
+
+		valueBinary.split(' ').map( result => {
+			returnString += String.fromCharCode(parseInt(result, 2))
+		})
+		console.log(returnString)
+		return returnString
+	}
+	return { stringToBinary, binaryToString }
 }

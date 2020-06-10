@@ -1,7 +1,8 @@
 
 exports.up = function(knex) {
 	return knex.schema.createTable('personal_information', table => {
-		table.increments('id').primary()
+		table.integer('parent_user_id').primary().references('user_id')
+			.inTable('users')
 		table.string('full_name', 40).notNull()
 		table.integer('age', 40).notNull()
 		table.string('city', 40).notNull()

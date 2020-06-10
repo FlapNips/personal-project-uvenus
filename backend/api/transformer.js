@@ -1,13 +1,12 @@
 module.exports = app => {
-	toLowercase = (param1, param2, param3) => {
-		param2 = param2 || ''
-		param3 = param3 || ''
+	stringToBinary = (param1) => {
+		let returnBinary = ""
 
-		param1.toLowercase
-		param2.toLowercase
-		param3.toLowercase
-
-		return {param1, param2, param3}
+		for(let i = 0 ; i < param1.length ; i++) {
+			returnBinary += param1.charCodeAt(0).toString(2)
+		}
+	
+		return returnBinary
 	}
-	return {toLowercase}
+	return { stringToBinary }
 }

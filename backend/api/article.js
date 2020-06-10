@@ -1,7 +1,7 @@
 module.exports = app => {
-	const { existsOrError } = app.api.validation
+	const { existsOrError, existsInDB } = app.api.validation
 	const { dateAndTime } = app.api.date
-	const { stringToBinary} = app.api.transformer
+	const { stringToBinary, binaryToString } = app.api.transformer
 
 	const newArticle = (req, res) => {
 		let data = {}
@@ -29,7 +29,6 @@ module.exports = app => {
 		
 		}
 
-		console.log(data)
 		app.db('articles')
 			.insert(data)
 			.then(() => res.status(201).send('Criado com sucesso'))
@@ -37,5 +36,23 @@ module.exports = app => {
 		return
 	}
 
-	return { newArticle }
+	const getArticle = async (req, res) => {
+		const reference = req.params.article_id
+		try {
+			if(isNaN(reference)) throw 'Insira um ID válido'
+			existsOrError(existsInDB('articles', 'article_id', 'article_id', reference)
+			, 'Artigo não encotrado!')
+		} catch(errorClient) {
+			return res.status(400).send(errorClient)
+		}
+
+		const data = await app.db('articles')
+						.where({ article_id: reference})
+						.first()
+
+		data.article_content = binaryToString(data.article_content)
+		return res.status(202).send(data)
+	}
+
+	return { newArticle, getArticle }
 }

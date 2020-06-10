@@ -122,7 +122,7 @@ module.exports = app => {
 		return user.deleted ? res.send('Deletado com sucesso!') : res.send('Conta ativa!')
 	
 	}
-	const bannedUser = (req, res) => {
+	const bannedUser = async (req, res) => {
 		let user = {}
 		user.user_id = req.params.user_id
 		user.banned = req.body.banned

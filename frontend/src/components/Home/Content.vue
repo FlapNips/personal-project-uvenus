@@ -1,5 +1,6 @@
 <template>
-  <div></div>
+  <b-row id="content-layout">
+  </b-row>
 </template>
 
 <script>
@@ -8,6 +9,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
+ #content-layout {
+	flex-grow: 1;
+ 
+ }
 </style>

@@ -1,6 +1,6 @@
 <template>
 	<b-row id="layout-footer" class="mb-0">
-		aaaaaa
+		111111111111
 	</b-row>
 </template>
 
@@ -14,7 +14,7 @@ export default {
 
 #layout-footer {
 	z-index: 10;
-	height: 5em;
+	height: 10vh;
 	background-color: black;
 	border-top: 2px solid yellow;
 

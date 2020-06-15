@@ -1,16 +1,13 @@
 <template>
-	<b-container id="menu-home" fluid class="m-0 p-0">
-		<b-row class="h-100 m-0">
-			<b-img src='@/assets/logo-light.png' class="p-1 m-0 ml-5 h-100"/>
-			<b-button-group class="ml-auto mr-5 my-auto">
-					<router-link v-for="button in buttons" :key="button.name" :to="button.route">
-						<b-button class="btn mx-3">
-							{{button.name}}
-						</b-button>
-					</router-link>
-			</b-button-group>
-		</b-row>
-	</b-container>
+	<b-row id="menu-layout" class="m-0">
+		<b-button-group class="ml-auto mrl-5 my-auto">
+			<router-link v-for="button in buttons" :key="button.name" :to="button.route">
+				<b-button class="btn mx-3">
+					{{button.name}}
+				</b-button>
+			</router-link>
+		</b-button-group>
+	</b-row>
 </template>
 
 <script>
@@ -18,7 +15,7 @@
 		data() {
 			return {
 				buttons : [
-					{ name: 'O que é Uvenus?', route: '/'	},
+					{ name: 'HOME', route: '/'	},
 					{ name: 'Sobre Nós', route: '/sobre'	},
 					{ name: 'Novidades', route: '/novidades'	},
 					{ name: 'Entrar / Registrar', route: '/entrar'	}
@@ -30,19 +27,24 @@
 </script>
 <style lang="scss">
 
-#menu-home {
-	height: 10vh;
-	flex-grow: 1;
-	background-color: $color_secondary;
-	border-bottom: 2px solid yellow;
+#menu-layout {
+	min-height: max-content;
+	height: 5vh;
 }
-
+#buttons-layout {
+	background-color: $color_2;
+	border-bottom: 4px solid $color_1;
+}
+.teste {
+	height: max-content;
+}
 .btn {
 	background-color: transparent;
-	font-size: 1.2em;
+	color: black;
+	font-size: 1.0em;
 	border: 0;
 	&:hover {
-		color: $color_primary;
+		color: $color_3;
 		background-color: transparent;
 	} 
 }

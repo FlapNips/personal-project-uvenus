@@ -1,35 +1,29 @@
 <template>
-  <b-container id="home-layout" fluid class="p-0">
+  <b-container id="home-layout" fluid class="p-0 d-flex flex-column">
     <Menu class="m-0 p-0"/>
-      <router-view id="router-layout" class="m-0 p-0"/>
+    <Content class="m-0 p-0"/>
     <Footer class="m-0 p-0"/>
   </b-container>
 </template>
 
 <script>
 import Menu from '@/components/home/Menu'
-import Footer from '@/components/home/Footer'
+import Footer from '@/components/Footer'
+import Content from '@/components/home/Content'
 
   export default {
     components: {
       Menu,
       Footer,
+      Content
     }
   }
 </script>
 <style lang="scss">
 
+
 #home-layout {
   height: 100vh;
-  max-height: 100vh;
-  min-height: max-content;
+  background-image: url('../assets/background.png');
 }
-
-#router-layout {
-	height: 80vh;
-	background-image: url('../assets/background.png');
-	background-repeat: repeat;
-	background-size: inherit;
-}
-
 </style>

@@ -1,7 +1,5 @@
 <template>
-	<b-row>
-		REGISTRAR
-	</b-row>
+  
 </template>
 
 <script>

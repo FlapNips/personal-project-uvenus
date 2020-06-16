@@ -7,8 +7,11 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home.vue')
-  },
+    component: () => import('../views/Home.vue'),
+    children: [
+      {path: '/entrar', component: () => import('../components/home/Entrar.vue')}
+    ]
+  }
 ]
 
 const router = new VueRouter({

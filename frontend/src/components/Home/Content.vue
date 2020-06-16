@@ -1,11 +1,17 @@
 <template>
-	<b-col class="content-home-layout d-flex flex-column m-0 p-5">
-		<b-container fluid class="box-content m-0 p-2">
-			<b-col cols="9" class="main-content mx-auto">
-				aaaa
-			</b-col>
-		</b-container>
-	</b-col>
+	<b-row id="content-layout" class="m-0">
+		<b-col cols="6" class="m-0 p-5 d-flex">
+			<b-container fluid style="background-color: rgb(253, 255, 225)">
+				<transition enter-active-class="fade">
+						aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+				</transition>
+				bbbbbbbbbb
+			</b-container>
+		</b-col>
+		<b-col cols="6" class="m-0 p-5 d-flex">
+			<b-container fluid style="background-color: rgb(253, 255, 225)"/>
+		</b-col>
+	</b-row>
 </template>
 
 <script>
@@ -21,18 +27,17 @@
 
 <style lang="scss" scoped>
 
-.content-home-layout {
-	flex-grow: 1;
-	.box-content {
-		background-color: rgb(119, 119, 255);
-		height: 100%;
-		transform: skewX(-10deg);
-		transform-origin: bottom left;
+#carousel-1 {
+	.img {
+		height: 500px;	
 	}
-	.main-content {
-		height: 100%;
-		transform: skewX(10deg);
-		background-color: rgb(134, 134, 134);
-	}
+
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

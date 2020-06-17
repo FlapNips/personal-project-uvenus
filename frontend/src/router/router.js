@@ -9,7 +9,10 @@ Vue.use(VueRouter)
     name: 'Home',
     component: () => import('../views/Home.vue'),
     children: [
-      {path: '/entrar', component: () => import('../components/home/Entrar.vue')}
+      {path: '/sobre', component: () => import('../components/home/AboutUs.vue')},
+      {path: '/', component: () => import('../components/home/Inicio.vue')},
+      {path: '/novidades', component: () => import('../components/home/News.vue')},
+      {path: '/conectar', component: () => import('../components/home/LoginAndRegister.vue')}
     ]
   }
 ]

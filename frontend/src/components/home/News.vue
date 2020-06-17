@@ -1,6 +1,6 @@
 <template>
-	<b-row>
-	</b-row>
+	<div>
+	</div>
 </template>
 
 <script>

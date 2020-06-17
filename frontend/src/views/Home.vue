@@ -3,17 +3,20 @@
     <b-col id="left-division" cols="4">
       <LeftDivision/>
     </b-col>
-      <b-col id="right-division" class="h-100">
+    <b-col id="right-division" class="h-100">
+      <RightDivision/>
     </b-col>
   </b-row>
 </template>
 <script>
-import LeftDivision from '@/components/home/Left'
+import LeftDivision from '@/components/home/LeftDivision'
+import RightDivision from '@/components/home/RightDivision'
 
   export default {
     name: 'Home',
     components: {
-      LeftDivision
+      LeftDivision,
+      RightDivision
     }
 }
 </script>

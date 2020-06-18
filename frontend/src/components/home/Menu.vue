@@ -1,16 +1,18 @@
 <template>
-	<b-row>
-		<b-button-group class="ml-auto mr-5 mt-2">
-			<router-link 
-			:id="`button-${button.css}`" 
-			v-for="button in buttons" 
-			:key="button.name" 
-			class="style-menu mx-2 p-2 my-auto" 
-			:to="button.path"> 
-				{{ button.name }} 
-			</router-link>
-		</b-button-group>
-	</b-row>
+	<b-container fluid>
+		<b-row>
+			<b-button-group class="ml-auto mr-5 mt-2">
+				<router-link 
+				:id="`button-${button.css}`" 
+				v-for="button in buttons" 
+				:key="button.name" 
+				class="style-menu mx-2 p-2 my-auto" 
+				:to="button.path"> 
+					{{ button.name }} 
+				</router-link>
+			</b-button-group>
+		</b-row>
+	</b-container>
 </template>
 
 <script>

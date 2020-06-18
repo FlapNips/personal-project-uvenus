@@ -1,34 +1,36 @@
 <template>
-	<b-container id="content-login align-self-center">
-		<b-row class="mt-auto">
-			<b-col cols="4" class="mx-auto">
+	<b-row class="my-auto  h-75 m-0 p-0">
+		<b-col cols="5" class="mx-auto my-auto">
+			<b-col cols="10" class="mx-auto">
 				<b-img id="image-perfil" src="@/assets/Perfil.png" class="mx-auto"/>
 			</b-col>
-		</b-row>
-		<b-row>
-			<b-col cols="5" class="mx-auto">
-				<b-form-group>
-					<b-input-group prepend="@" class="my-4">
-						<b-form-input placeholder="Usuário" class="formulario-login"/>
-					</b-input-group>
-					<b-form-input placeholder="Senha" type="password" class="formulario-login"/>
-					<b-row class="px-4 my-4">
-						<b-form-checkbox 
-						v-model="checked" 
-						class="formulario-login my-auto"
-						size="lg"
-						switch>
-							Entrar Automaticamente
-						</b-form-checkbox>
-						<b-btn class="ml-auto" size="lg">ENTRAR</b-btn>
-					</b-row>
-				</b-form-group>
-			</b-col>
-		</b-row>
-		<b-row class="mx-auto mb-auto">
+			<b-form-group>
+				<b-input-group prepend="@" class="my-4">
+					<b-form-input placeholder="Usuário" class="formulario-login"/>
+				</b-input-group>
+				<b-form-input placeholder="Senha" type="password" class="formulario-login"/>
+				<b-row class="px-4 my-4">
+					<b-form-checkbox 
+					v-model="checked" 
+					class="formulario-login my-auto"
+					size="lg"
+					switch>
+						Entrar Automaticamente
+					</b-form-checkbox>
+					<b-btn class="ml-auto btn-success" size="lg">ENTRAR</b-btn>
+				</b-row>
+			</b-form-group>
 			<div class="separator"> OU </div>
-		</b-row>
-	</b-container>
+			<b-row class="px-3">
+				<router-link to="/recuperar" class="mr-auto">
+					ESQUECEU A SENHA ?
+				</router-link>
+				<router-link to="/cadastro" class="ml-auto">
+					JUNTE-SE A NÓS !
+				</router-link>
+			</b-row>
+		</b-col>
+	</b-row>
 </template>
 
 <script>
@@ -42,15 +44,6 @@ export default {
 </script>
 
 <style lang="scss">
-
-#content-login {
-	position: relative;
-	flex-direction: column;
-	top: 0;
-	bottom: 0;
-	margin: auto 0 auto 0!important;
-
-}
 #image-perfil {
 	max-width: 100%;
 	max-height: 100%;

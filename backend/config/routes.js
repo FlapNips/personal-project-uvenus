@@ -1,6 +1,9 @@
 module.exports = app => {
 	app.route('/user')
 		.post(app.api.user.createUser)
+
+	app.route('/teste')
+		.post(app.api.user.verifyUser)
 	
 	app.route('/user/:user_id')
 		.put(app.api.user.updateUser)

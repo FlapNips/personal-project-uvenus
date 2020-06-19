@@ -137,6 +137,33 @@ module.exports = app => {
 		}
 		return user.banned ? res.send('Banido com Sucesso') : res.send('Usuário desbanido')
 	}
+
+	const verifyUser = async (req, res) => {
+		let username = req.body.username
+		const password = req.body.password
+
+		if(username) username = username.toLowerCase()
+		try {
+			existsOrError(await existsInDB('users', 'username', 'username', username)
+			, 'Usuário não encontrado')
+			const hash = await app.db('users').select('password').where({ username: username }).first()
+			console.log('aqui foi2')
+			bcrypt.compare(password, hash.password , function(err, isMatch) {
+				if (err) {
+					throw err
+				} else if (!isMatch) {
+					console.log("Password doesn't match!")
+				} else {
+				console.log("Password matches!")
+				}
+				})
+			console.log('aqui foi3')
+		} catch(error) {
+			return res.status(400).send(error)
+		}
+
+		return res.status(200).send('sucess')
+	}
 	
-	return { createUser, updateUser, bannedUser, deletedUser }
+	return { createUser, updateUser, bannedUser, deletedUser, verifyUser }
 }

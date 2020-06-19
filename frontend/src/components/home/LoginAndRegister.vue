@@ -6,9 +6,16 @@
 			</b-col>
 			<b-form-group>
 				<b-input-group prepend="@" class="my-4">
-					<b-form-input placeholder="Usuário" class="formulario-login"/>
+					<b-form-input 
+					v-model="login.username" 
+					placeholder="Usuário" 
+					class="formulario-login"/>
 				</b-input-group>
-				<b-form-input placeholder="Senha" type="password" class="formulario-login"/>
+				<b-form-input 
+				v-model="login.password" 
+				placeholder="Senha" 
+				type="password" 
+				class="formulario-login"/>
 				<b-row class="px-4 my-4">
 					<b-form-checkbox 
 					v-model="checked" 
@@ -17,7 +24,12 @@
 					switch>
 						Entrar Automaticamente
 					</b-form-checkbox>
-					<b-btn class="ml-auto btn-success" size="lg">ENTRAR</b-btn>
+					<b-btn
+					@click="userLogin(login.username, login.password)"
+					class="ml-auto btn-success" 
+					size="lg">
+						ENTRAR
+					</b-btn>
 				</b-row>
 			</b-form-group>
 			<div class="separator"> OU </div>
@@ -34,10 +46,32 @@
 </template>
 
 <script>
+const axios = require('axios').default;
+axios.defaults.baseURL = 'http://localhost:3000';
+
 export default {
 	data() {
 		return {
 			checked : false,
+			login: [
+				{ username: '' },
+				{ password: '' }
+			]
+		}
+	},
+	methods: {
+		userLogin(user, password) {
+			axios.post('/teste', {
+				username: user,
+				password: password
+			}).then( resp => {
+				if(resp.status === 200) {
+					user = user.toLowerCase()
+					this.$router.push(`/${user}`)
+				}
+			}).catch( error => {
+				console.log(error)
+			})
 		}
 	}
 }

@@ -1,9 +1,10 @@
 module.exports = app => {
+	app.post('/conectar', app.api.auth.signIn)
+	app.post('/validateToken', app.api.auth.validateToken)
+	app.post('/registrar', app.api.user.createUser)
+
 	app.route('/user')
 		.post(app.api.user.createUser)
-
-	app.route('/teste')
-		.post(app.api.user.verifyUser)
 	
 	app.route('/user/:user_id')
 		.put(app.api.user.updateUser)

@@ -7,18 +7,18 @@
 			<b-form-group>
 				<b-input-group prepend="@" class="my-4">
 					<b-form-input 
-					v-model="login.username" 
-					placeholder="Usuário" 
+					v-model="login.username"
+					placeholder="Usuário"
 					class="formulario-login"/>
 				</b-input-group>
 				<b-form-input 
-				v-model="login.password" 
-				placeholder="Senha" 
-				type="password" 
+				v-model="login.password"
+				placeholder="Senha"
+				type="password"
 				class="formulario-login"/>
 				<b-row class="px-4 my-4">
-					<b-form-checkbox 
-					v-model="checked" 
+					<b-form-checkbox
+					v-model="checked"
 					class="formulario-login my-auto"
 					size="lg"
 					switch>
@@ -26,7 +26,7 @@
 					</b-form-checkbox>
 					<b-btn
 					@click="userLogin(login.username, login.password)"
-					class="ml-auto btn-success" 
+					class="ml-auto btn-success"
 					size="lg">
 						ENTRAR
 					</b-btn>
@@ -61,13 +61,12 @@ export default {
 	},
 	methods: {
 		userLogin(user, password) {
-			axios.post('/teste', {
+			axios.post('/conectar', {
 				username: user,
 				password: password
 			}).then( resp => {
 				if(resp.status === 200) {
-					user = user.toLowerCase()
-					this.$router.push(`/${user}`)
+					this.$router.push('/')
 				}
 			}).catch( error => {
 				console.log(error)

@@ -20,7 +20,7 @@
 		data() {
 			return {
 				buttons: [
-					{name: 'Início', path: '/', css: 'home'},
+					{name: 'Início', path: '/inicio', css: 'home'},
 					{name: 'Sobre nós', path: '/sobre', css: 'about'},
 					{name: 'Novidades', path: '/novidades', css: 'news'},
 					{name: 'Entrar / Registrar', path: '/conectar', css: 'conect'}

@@ -5,6 +5,8 @@ const consign = require('consign')
 app.db = db
 
 consign()
+	.include('./config/passport.js')
+	.then('./config/passport.js')
 	.then('./config/middlewares.js')
 	.then('./api/faculdade.json')
 	.then('./api/validation.js')

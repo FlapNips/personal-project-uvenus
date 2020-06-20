@@ -32,7 +32,7 @@ import Menu from '@/components/home/Menu'
     background-color: $fifth;
     transform: skewX(-10deg);
     transform-origin: top left;
-      min-width: max-content!important;
+    min-width: max-content!important;
   }
 }
 </style>

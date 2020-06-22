@@ -1,20 +1,24 @@
 <template>
-	<b-container id="main-layout" fluid class="h-100">
-		<div id="sidebar-menu">
-		</div>
-		<b-row>
+	<b-container id="main-layout" fluid class="h-100 m-0 p-0">
+		<b-col id="sidebar-menu">
+			<sideBar/>
+		</b-col>
+		<b-col>
 			
-		</b-row>
+		</b-col>
 	</b-container>
 </template>
 
 <script>
-export default {
+import sideBar from '@/components/main/SideBar'
 
+export default {
+	components: { sideBar }
 }
 </script>
 
 <style lang="scss">
+
 #main-layout {
 	overflow: auto;
 	background-color: wheat;

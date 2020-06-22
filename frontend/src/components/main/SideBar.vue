@@ -1,5 +1,5 @@
 <template>
-  <b-row @mouseenter="teste()" class="h-100">
+  <div @mouseenter="teste()" class="h-100">
     <div @mouseleave="teste()">
       <b-sidebar 
         id="sidebar-left" 
@@ -7,7 +7,7 @@
         left>
       </b-sidebar>
     </div>
-  </b-row>
+  </div>
 </template>
 
 <script>

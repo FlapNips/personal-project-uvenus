@@ -1,12 +1,24 @@
 <template>
-	<b-container id="main-layout" fluid class="h-100 m-0 p-0">
-		<b-col id="sidebar-menu">
+	<b-row id="main-layout" fluid class="m-0 p-0 mx-auto">
+		<div id="sidebar-menu" class="m-0 p-0">
 			<sideBar/>
+		</div>
+		<b-col id="main-division" class="m-0 p-0">
+			<b-container fluid>
+				<b-row id="main-menu">
+					aa
+				</b-row>
+				<b-row id="main-content">
+					<b-col cols="10">
+						aaaa
+					</b-col>
+					<b-col cols="2" style="background-color: gray">
+						bbbb
+					</b-col>
+				</b-row>
+			</b-container>
 		</b-col>
-		<b-col>
-			
-		</b-col>
-	</b-container>
+	</b-row>
 </template>
 
 <script>
@@ -22,15 +34,25 @@ export default {
 #main-layout {
 	overflow: auto;
 	background-color: wheat;
-	max-width: 1920px;
+	width: 100vw;
 	#sidebar-menu {
 		background-color: blue;
-		width: 3%;
+		width: 3%!important;
 		height: 100vh!important;
 	}
-	#main-content {
+	#main-division {
+		position: relative;
 		height: 100%;
-		width: 97%;
+		#main-menu {
+			height: 5vh;
+			max-height: 150px;
+			background-color: aquamarine;
+		}
+		#main-content {
+			min-height: 95vh;
+			height: 100%;
+			background-color: rgb(48, 206, 88);
+		}
 	}
 }
 

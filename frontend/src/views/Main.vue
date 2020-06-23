@@ -36,7 +36,7 @@ export default {
 	background-color: wheat;
 	width: 100vw;
 	#sidebar-menu {
-		background-color: blue;
+		background-color: $fifth;
 		width: 3%!important;
 		height: 100vh!important;
 	}

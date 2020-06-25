@@ -1,17 +1,13 @@
 <template>
-	<b-row id="main-layout" class="m-0 p-0 ml-auto">
-		<div id="sidebar-menu" class="m-0 p-0">
+	<b-row id="view-main-layout" class="m-0 p-0 ml-auto">
+		<div id="view-sidebar-menu" class="m-0 p-0">
 			<SideBar/>
 		</div>
-		<b-container id="main-division" fluid class="m-0 ml-auto p-0">
+		<b-container id="view-main-division" fluid class="p-0">
 			<Menu/>
-			<b-row id="main-content" class="p-0 mx-0">
-				<b-col cols="10" class="mx-auto p-5">
-					<Content/>
-				</b-col>
-				<b-col cols="2" class="p-0 m-0">
-					<MenuRight/>
-				</b-col>
+			<b-row id="view-main-content" class="p-0">
+				<Content/>
+				<MenuRight/>
 			</b-row>
 		</b-container>
 	</b-row>
@@ -35,31 +31,35 @@ export default {
 <style lang="scss">
 
 
-#main-layout {
-	overflow: hidden;
+#view-main-layout {
+	overflow: auto;
 	background-color: wheat;
 	width: 100vw;
 	max-width: 100%;
-	height: auto;
-	#sidebar-menu {
+	height: 100%;
+	#view-sidebar-menu {
 		position: fixed;
 		top: 0;
 		left: 0;
 		z-index: 100;
-		width: 3%;
+		width: 3vw;
 		background-color: $fifth;
 		height: 100vh!important;
 	}
 
-	#main-division {
+	#view-main-division {
 		position: relative;
 		flex-grow: 0;
-		width: 97%;
+		right: 0;
+		margin-left: 3%;
 		height: 100%;
-		#main-content {
+		width: 97vw;
+		max-width: 100%;
+		#view-main-content {
 			position: relative;
-			height: calc(100vh - 3em);
-			margin-top: 3em;
+			height: 100%;
+			min-height: calc(100vh - 3em);
+			margin: 3em 0 0 0;
 			background-color: rgb(48, 206, 88);
 		}
 	}

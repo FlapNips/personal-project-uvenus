@@ -3,8 +3,8 @@
 		<b-row class="m-0 my-3 p-1">
 			<b-img src="../../assets/Perfil.png" class="image-profile"/>
 		</b-row>
-		<b-row class="m-0 p-0">
-			<b-icon v-for="icon in icons" :key="icon.name" :icon="icon.name" class="h1 mx-auto my-5"/>
+		<b-row v-for="icon in icons" :key="icon.name" class="m-0 p-0">
+			<b-icon :icon="icon.name" class="icon-layout h1 mx-auto my-5"/>
 		</b-row>
 		<div @mouseleave="changeSlideBar()">
 			<b-sidebar 
@@ -56,7 +56,7 @@
 export default {
 	data() {
 		return {
-			slideBar: true,
+			slideBar: false,
 			icons: [
 				{name: 'person-lines-fill'},
 				{name: 'bookmarks'},
@@ -71,19 +71,19 @@ export default {
 						{ name: 'submenu 2', router: '' },
 						{ name: 'submenu 3', router: '' },
 						{ name: 'submenu 4', router: '' }
-					], collapsed: true},
+					], collapsed: false},
 				{name: 'teste2', children: [
 						{ name: 'submenu 5', router: '' },
 						{ name: 'submenu 6', router: '' },
 						{ name: 'submenu 7', router: '' },
 						{ name: 'submenu 8', router: '' }
-					], collapsed: true},
+					], collapsed: false},
 				{name: 'teste3', children: [
 						{ name: 'submenu 9', router: '' },
 						{ name: 'submenu 10', router: '' },
 						{ name: 'submenu 11', router: '' },
 						{ name: 'submenu 12', router: '' }
-					], collapsed: true}
+					], collapsed: false}
 		
 			]
 		}
@@ -106,5 +106,8 @@ export default {
 #status-profile {
 	border-bottom: 2px solid $primary;
 
+}
+.icon-layout {
+	max-zoom: 100%;
 }
 </style>

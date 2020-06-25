@@ -1,31 +1,29 @@
 <template>
-	<b-row id="main-layout" fluid class="m-0 p-0 mx-auto">
+	<b-row id="main-layout" class="m-0 p-0 ml-auto">
 		<div id="sidebar-menu" class="m-0 p-0">
-			<sideBar/>
+			<SideBar/>
 		</div>
-		<b-col id="main-division" class="m-0 p-0">
-			<b-container fluid>
-				<b-row id="main-menu">
-					aa
-				</b-row>
-				<b-row id="main-content">
-					<b-col cols="10">
-						aaaa
-					</b-col>
-					<b-col cols="2" style="background-color: gray">
-						bbbb
-					</b-col>
-				</b-row>
-			</b-container>
-		</b-col>
+		<b-container id="main-division" fluid class="mx-auto m-0 p-0">
+			<Menu id="main-menu"/>
+			<b-row id="main-content" class="m-0 p-0">
+				<b-col cols="10" class="m-0 p-5">
+					<Content/>
+				</b-col>
+				<b-col cols="2" style="background-color: gray" class="m-0 p-0">
+					bbbb
+				</b-col>
+			</b-row>
+		</b-container>
 	</b-row>
 </template>
 
 <script>
-import sideBar from '@/components/main/SideBar'
+import SideBar from '@/components/main/SideBar'
+import Menu from '@/components/main/Menu'
+import Content from '@/components/main/Content'
 
 export default {
-	components: { sideBar }
+	components: { SideBar, Menu, Content }
 }
 </script>
 
@@ -34,23 +32,29 @@ export default {
 #main-layout {
 	overflow: auto;
 	background-color: wheat;
-	width: 100vw;
+	width: 97vw;
+	height: auto;
 	#sidebar-menu {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 100;
+		width: 3vw;
 		background-color: $fifth;
-		width: 3%!important;
 		height: 100vh!important;
 	}
 	#main-division {
-		position: relative;
+		flex-grow: 0;
+		width: 100%;
 		height: 100%;
 		#main-menu {
 			height: 5vh;
-			max-height: 150px;
+			min-height: max-content;
 			background-color: aquamarine;
 		}
 		#main-content {
 			min-height: 95vh;
-			height: 100%;
+			height: max-content;
 			background-color: rgb(48, 206, 88);
 		}
 	}

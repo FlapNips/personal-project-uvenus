@@ -5,11 +5,11 @@
 		</div>
 		<b-container id="main-division" fluid class="m-0 ml-auto p-0">
 			<Menu/>
-			<b-row id="main-content" class="p-0">
-				<b-col cols="10" class="m-0 p-5">
+			<b-row id="main-content" class="p-0 mx-0">
+				<b-col cols="10" class="mx-auto p-5">
 					<Content/>
 				</b-col>
-				<b-col cols="2" class="m-0 p-0">
+				<b-col cols="2" class="p-0 m-0">
 					<MenuRight/>
 				</b-col>
 			</b-row>
@@ -34,6 +34,7 @@ export default {
 
 <style lang="scss">
 
+
 #main-layout {
 	overflow: hidden;
 	background-color: wheat;
@@ -49,16 +50,16 @@ export default {
 		background-color: $fifth;
 		height: 100vh!important;
 	}
+
 	#main-division {
 		position: relative;
 		flex-grow: 0;
 		width: 97%;
 		height: 100%;
 		#main-content {
-			overflow-y: hidden;
-			margin: 5vh 0 0 0;
-			min-height: 95vh;
-			height: 100%;
+			position: relative;
+			height: calc(100vh - 3em);
+			margin-top: 3em;
 			background-color: rgb(48, 206, 88);
 		}
 	}

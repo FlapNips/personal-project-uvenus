@@ -4,7 +4,9 @@
 			<SideBar/>
 		</div>
 		<b-container id="view-main-division" fluid class="p-0">
-			<Menu/>
+			<b-row id="view-main-menu-top" class="p-0 m-0">
+				<MenuTop/>
+			</b-row>
 			<b-row id="view-main-content" class="p-0">
 				<Content/>
 				<MenuRight/>
@@ -15,21 +17,20 @@
 
 <script>
 import SideBar from '@/components/main/SideBar'
-import Menu from '@/components/main/Menu'
+import MenuTop from '@/components/main/MenuTop'
 import Content from '@/components/main/Content'
 import MenuRight from '@/components/main/MenuRight'
 
 export default {
 	components: { 
 	SideBar, 
-	Menu, 
+	MenuTop, 
 	Content, 
 	MenuRight }
 }
 </script>
 
 <style lang="scss">
-
 
 #view-main-layout {
 	overflow: auto;
@@ -48,18 +49,23 @@ export default {
 	}
 
 	#view-main-division {
-		position: relative;
+		overflow: auto;
 		flex-grow: 0;
 		right: 0;
 		margin-left: 3%;
 		height: 100%;
 		width: 97vw;
 		max-width: 100%;
+		#view-main-menu-top {
+			position: relative;
+			height: $menuTopHeight;
+			min-height: max-content;
+		}
 		#view-main-content {
 			position: relative;
 			height: 100%;
-			min-height: calc(100vh - 3em);
-			margin: 3em 0 0 0;
+			min-height: calc(100vh - $menuTopHeight);
+			margin: $menuTopHeight 0 0 0;
 			background-color: rgb(48, 206, 88);
 		}
 	}

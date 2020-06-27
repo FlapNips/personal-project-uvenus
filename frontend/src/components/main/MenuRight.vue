@@ -1,8 +1,8 @@
 <template>
 	<b-col cols="3" class="main-menu-right p-0">
-		<div class="fixed_child">
-			aaaa
-		</div>
+		<b-container class="fixed-child m-0 p-0">
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem laborum eos, iste corporis libero placeat reiciendis nihil impedit voluptatem molestiae sit adipisci fuga ratione culpa quod maiores quaerat, laudantium possimus!
+		</b-container>
 	</b-col>
 </template>
 
@@ -13,15 +13,17 @@ export default {
 </script>
 
 <style lang="scss">
-.main-menu-right {
-	width: 100%;
+#view-main-content {
+	.main-menu-right {
+	width: inherit;
 	height: 100%;
 	margin: 0!important;
-}
-.main-menu-right .fixed_child {
-	position: fixed;
-	width: inherit;
-	height: inherit;
-	background-color: gray;
+	}
+	.fixed-child {
+		position: fixed;
+		width: inherit;
+		height: inherit;
+		background-color: gray;
+	}
 }
 </style>

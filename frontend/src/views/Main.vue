@@ -1,18 +1,18 @@
 <template>
-	<b-row id="view-main-layout" class="m-0 p-0 ml-auto">
-		<div id="view-sidebar-menu" class="m-0 p-0">
+	<div class="main-container m-0 p-0">
+		<aside class="view-main-sidebar m-0 p-0">
 			<SideBar/>
-		</div>
-		<b-container id="view-main-division" fluid class="p-0">
-			<b-row id="view-main-menu-top" class="p-0 m-0">
-				<MenuTop/>
-			</b-row>
-			<b-row id="view-main-content" class="p-0">
-				<Content/>
-				<MenuRight/>
-			</b-row>
-		</b-container>
-	</b-row>
+		</aside>
+		<header class="view-main-menu-top m-0 p-0">
+			<MenuTop/>
+		</header>
+		<main class="view-main-content m-0 p-0">
+			<Content/>
+		</main>
+		<section class="view-main-menu-right m-0 p-0">
+			<MenuRight/>
+		</section>
+	</div>
 </template>
 
 <script>
@@ -31,43 +31,30 @@ export default {
 </script>
 
 <style lang="scss">
-
-#view-main-layout {
-	overflow: auto;
-	background-color: wheat;
-	width: 100vw;
-	max-width: 100%;
-	height: 100%;
-	#view-sidebar-menu {
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 100;
-		width: 3vw;
-		background-color: $fifth;
-		height: 100vh!important;
+.main-container {
+	display: grid;
+	grid-template-columns: 5em auto 300px;
+	grid-template-rows: 5em minmax(calc(100vh - 5em), 100%);
+	.view-main-sidebar {
+		position: relative;
+		background-color: yellow;
+		grid-column: 1/2;
+		grid-row: 1/3;
 	}
-
-	#view-main-division {
-		overflow: auto;
-		flex-grow: 0;
-		right: 0;
-		margin-left: 3%;
-		height: 100%;
-		width: 97vw;
-		max-width: 100%;
-		#view-main-menu-top {
-			position: relative;
-			height: $menuTopHeight;
-			min-height: max-content;
-		}
-		#view-main-content {
-			position: relative;
-			height: 100%;
-			min-height: calc(100vh - $menuTopHeight);
-			margin: $menuTopHeight 0 0 0;
-			background-color: rgb(48, 206, 88);
-		}
+	.view-main-menu-top {
+		background-color: green;
+		grid-column: 2/4;
+		grid-row: 1/2;
+	}
+	.view-main-content {
+		background-color: rgb(153, 153, 255);
+		grid-column: 2/3;
+		grid-row: 2/3;
+	}
+	.view-main-menu-right {
+		background-color: gray;
+		grid-column: 3/4;
+		grid-row: 2/3;
 	}
 }
 

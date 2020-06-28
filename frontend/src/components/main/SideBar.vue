@@ -1,7 +1,7 @@
 <template>
-	<b-container @mouseenter="slideBar = true" class="h-100 m-0 p-0">
-		<b-row class="m-0 my-3 p-1">
-			<b-img src="../../assets/Perfil.png" class="image-profile"/>
+	<div class="component-sidebar m-0 p-0">
+		<b-row @mouseenter="slideBar = true" class=" m-0 my-3 p-1">
+
 		</b-row>
 		<b-row v-for="icon in icons" :key="icon.name" class="m-0 p-0">
 			<b-icon :icon="icon.name" class="icon-layout h1 mx-auto my-5"/>
@@ -49,7 +49,7 @@
 				</b-container>
 			</b-sidebar>
 		</div>
-	</b-container>
+	</div>
 </template>
 
 <script>
@@ -98,16 +98,17 @@ export default {
 </script>
 
 <style lang="scss">
-.image-profile {
-  width: 100%;
-  max-width: 100%;
-  max-height: 100%;
-}
-#status-profile {
-	border-bottom: 2px solid $primary;
+.component-sidebar {
+	position: fixed;
+	width: 5em;
+	.image-profile {
+	width: inherit;
+	max-width: inherit;
+	max-height: inherit;
+	}
+	#status-profile {
+		border-bottom: 2px solid $primary;
 
-}
-.icon-layout {
-	max-zoom: 100%;
+	}
 }
 </style>

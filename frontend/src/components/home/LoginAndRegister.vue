@@ -2,7 +2,7 @@
 	<b-row class="my-auto  h-75 m-0 p-0">
 		<b-col cols="5" class="mx-auto my-auto">
 			<b-col cols="10" class="mx-auto">
-				<b-img id="image-perfil" src="@/assets/Perfil.png" class="mx-auto"/>
+				<b-img id="image-perfil" src="@/assets/profile.png" class="mx-auto"/>
 			</b-col>
 			<b-form-group>
 				<b-input-group prepend="@" class="my-4">

@@ -1,90 +1,98 @@
 <template>
-	<div class="component-sidebar m-0 p-0">
-		<b-row @mouseenter="slideBar = true" class=" m-0 my-3 p-1">
-
-		</b-row>
-		<b-row v-for="icon in icons" :key="icon.name" class="m-0 p-0">
-			<b-icon :icon="icon.name" class="icon-layout h1 mx-auto my-5"/>
-		</b-row>
-		<div @mouseleave="changeSlideBar()">
-			<b-sidebar 
-				id="sidebar-left" 
-				:visible="slideBar" 
-				left
-				no-header>
-				<b-container fluid>
-					<b-row id="status-profile" class="my-3">
-						<b-col cols="5">
-							<b-img src="../../assets/Perfil.png" class="image-profile"/>
-						</b-col>
-						<b-col cols="7">
-							<b-container fluid>
-								<b-row class="px-3">
-									<h2 class="mx-auto">@FlapNips</h2>
-								</b-row>
-								<b-row class="px-3">
-									<b-col cols="8" class="mx-auto">
-										<b-img src="../../assets/RANK.svg" fluid class="mx-auto"/>
-									</b-col>
-									<b-col cols="12" class="mx-auto">
-										<h3 class="text-center">3567</h3>
-									</b-col>
-								</b-row>
-							</b-container>
-						</b-col>
-					</b-row>
-					<b-row v-for="(options, index) in menu" :key="options.name">
-						<b-col :id="options.name" cols="12">
-							<b-button @click="options.collapsed = !options.collapsed" class="col-12 my-2">
-								<b-icon :icon="icons[index].name" class="h1 my-auto mr-3"/>
-								{{ options.name }}
-							</b-button>
-							<b-collapse v-model="options.collapsed" class="text-center">
-								<b-button v-for="submenu in options.children" :key="submenu.name" class="col-10 mx-auto my-2">
-									{{ submenu.name }}
-								</b-button>
-							</b-collapse>
-						</b-col>
-					</b-row>
-				</b-container>
-			</b-sidebar>
-		</div>
-	</div>
+	<b-row align-content="stretch" align-v="stretch" no-gutters class="component-sidebar">
+		<b-col cols="12" class="my-auto p-1">
+			<b-img src="@/assets/profile.png" class="image-profile"/>
+		</b-col>
+		<!--- BUTTONS V-FOR-->
+		<router-link v-for="button in menu" :key="button.name" 
+		:id="`button-${button.name}`"
+		:to="button.router"
+		tag="img"
+		:src="button.icon"
+		class="button-sidebar p-3">
+			<b-col class="p-0">
+				<b-tooltip
+					:target="`button-${button.name}`"
+					noninteractive
+					placement="right"
+					triggers="hover">
+					{{ button.name }}
+				</b-tooltip>
+			</b-col>
+		</router-link>
+		<b-button id="button-Expand" class="button-sidebar" @click="changeSlideBar()">
+			<b-icon icon="chevron-double-right" class="mx-auto h1"/>
+			<b-tooltip
+				target="button-Expand"
+				noninteractive
+				placement="right"
+				triggers="hover">
+					Expandir
+			</b-tooltip>
+		</b-button>
+		<SideBarOpen :slideBar="slideBar" :menu="menu"/>
+	</b-row>
 </template>
 
 <script>
+import SideBarOpen from './SideBarOpen.vue'
+
 export default {
+	components: {
+		SideBarOpen
+	},
 	data() {
 		return {
 			slideBar: false,
-			icons: [
-				{name: 'person-lines-fill'},
-				{name: 'bookmarks'},
-				{name: 'newspaper'},
-				{name: 'trophy'},
-				{name: 'shop'},
-				{name: 'tools'}
-			],
 			menu: [
-				{name: 'teste', children: [
+					{
+					name: 'Pessoal',
+					icon: require('@/assets/icon-personal.svg'),
+					router: '/user',
+					collapsed: false,
+					children: [
 						{ name: 'submenu 1', router: '' },
 						{ name: 'submenu 2', router: '' },
 						{ name: 'submenu 3', router: '' },
 						{ name: 'submenu 4', router: '' }
-					], collapsed: false},
-				{name: 'teste2', children: [
-						{ name: 'submenu 5', router: '' },
-						{ name: 'submenu 6', router: '' },
-						{ name: 'submenu 7', router: '' },
-						{ name: 'submenu 8', router: '' }
-					], collapsed: false},
-				{name: 'teste3', children: [
-						{ name: 'submenu 9', router: '' },
-						{ name: 'submenu 10', router: '' },
+					]
+				},
+					{	
+					name: 'Curso',
+					icon: require('@/assets/icon-course.svg'),
+					router: '/course',
+					collapsed: false,
+					children: [
 						{ name: 'submenu 11', router: '' },
-						{ name: 'submenu 12', router: '' }
-					], collapsed: false}
-		
+						{ name: 'submenu 22', router: '' },
+						{ name: 'submenu 33', router: '' },
+						{ name: 'submenu 44', router: '' }
+					]
+				},
+					{	
+					name: 'Universidade',
+					icon: require('@/assets/icon-university2.svg'),
+					router: '/news',
+					collapsed: false,
+					children: [
+						{ name: 'submenu 15', router: '' },
+						{ name: 'submenu 26', router: '' },
+						{ name: 'submenu 37', router: '' },
+						{ name: 'submenu 48', router: '' }
+					]
+				},
+					{	
+					name: 'Configurações',
+					icon: require('@/assets/icon-config.svg'),
+					router: '/configuration',
+					collapsed: false,
+					children: [
+						{ name: 'submenu 17', router: '' },
+						{ name: 'submenu 28', router: '' },
+						{ name: 'submenu 39', router: '' },
+						{ name: 'submenu 40', router: '' }
+					]
+				},
 			]
 		}
 	},
@@ -92,6 +100,9 @@ export default {
 		changeSlideBar() {
 			console.log('FOI' + this.slideBar)
 			return this.slideBar = !this.slideBar
+		},
+		getIcon(button) {
+			return require(button.icon)
 		}
 	}
 }
@@ -101,14 +112,33 @@ export default {
 .component-sidebar {
 	position: fixed;
 	width: 5em;
+	min-height: 100%;
 	.image-profile {
-	width: inherit;
+	width: 100%;
 	max-width: inherit;
 	max-height: inherit;
+	}
+	.button-sidebar {
+		width: 100%;
+		border: 0;
+		border-radius: 0;
+		background-color: $primary_medium;
+		&:hover {
+		background-color: $primary;
+		color: $secondary;
+		cursor: pointer;
+		}
+
 	}
 	#status-profile {
 		border-bottom: 2px solid $primary;
 
 	}
+	.router-link-exact-active {
+		background-color: $primary;
+		color: $secondary;
+		border-radius: 0;
+	}
+
 }
 </style>

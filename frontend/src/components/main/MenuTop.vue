@@ -1,6 +1,6 @@
 <template>
 	<div id="main-menu-top" class="m-0 p-0">
-			aaaa
+			<div>aaabc</div>
 	</div>
 </template>
 
@@ -22,9 +22,9 @@ export default {
 #main-menu-top {
 	position: relative;
 	width: 100%;
+	z-index: 10;
 	height: $menuTopHeight;
 	min-height: max-content;
-	z-index: 50;
 
 }
 </style>

@@ -33,11 +33,13 @@ export default {
 <style lang="scss">
 .main-container {
 	display: grid;
+	position: relative;
 	grid-template-columns: 5em auto 300px;
 	grid-template-rows: 5em minmax(calc(100vh - 5em), 100%);
 	.view-main-sidebar {
 		position: relative;
-		background-color: yellow;
+		z-index: 100;
+		background-color: $primary_medium;
 		grid-column: 1/2;
 		grid-row: 1/3;
 	}

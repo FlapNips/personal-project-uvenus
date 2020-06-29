@@ -14,13 +14,13 @@ const routes = [
 		{path: '/conectar', component: () => import('../components/home/LoginAndRegister.vue')}
 	]
 	},
-	{ path: '/',
+	{ path: '/userid',
 	name: 'Main',
 	component: () => import('../views/Main.vue'),
 	children: [
-		{path: '/user', component: () => import('../components/home/AboutUs.vue')},
-		{path: '/course', component: () => import('../components/home/Inicio.vue')},
-		{path: '/news', component: () => import('../components/home/News.vue')},
+		{path: '/userid/user', component: () => import('../components/home/AboutUs.vue')},
+		{path: '/userid/course', component: () => import('../components/home/Inicio.vue')},
+		{path: '/userid/news', component: () => import('../components/home/News.vue')},
 		]
 	},
 ]

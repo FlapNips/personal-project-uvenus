@@ -48,7 +48,7 @@ export default {
 					{
 					name: 'Pessoal',
 					icon: require('@/assets/icon-personal.svg'),
-					router: '/user',
+					router: '/userid/user',
 					collapsed: false,
 					children: [
 						{ name: 'submenu 1', router: '' },
@@ -60,7 +60,7 @@ export default {
 					{	
 					name: 'Curso',
 					icon: require('@/assets/icon-course.svg'),
-					router: '/course',
+					router: '/userid/course',
 					collapsed: false,
 					children: [
 						{ name: 'submenu 11', router: '' },
@@ -72,7 +72,7 @@ export default {
 					{	
 					name: 'Universidade',
 					icon: require('@/assets/icon-university2.svg'),
-					router: '/news',
+					router: '/userid/news',
 					collapsed: false,
 					children: [
 						{ name: 'submenu 15', router: '' },
@@ -84,7 +84,7 @@ export default {
 					{	
 					name: 'Configurações',
 					icon: require('@/assets/icon-config.svg'),
-					router: '/configuration',
+					router: '/userid/configuration',
 					collapsed: false,
 					children: [
 						{ name: 'submenu 17', router: '' },

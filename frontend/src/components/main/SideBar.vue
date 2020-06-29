@@ -30,7 +30,7 @@
 					Expandir
 			</b-tooltip>
 		</b-button>
-		<SideBarOpen :slideBar="slideBar" :menu="menu"/>
+		<SideBarOpen :slideBar="slideBar" :menu="menu" :changeSlideBar="changeSlideBar"/>
 	</b-row>
 </template>
 
@@ -98,7 +98,6 @@ export default {
 	},
 	methods: {
 		changeSlideBar() {
-			console.log('FOI' + this.slideBar)
 			return this.slideBar = !this.slideBar
 		},
 		getIcon(button) {

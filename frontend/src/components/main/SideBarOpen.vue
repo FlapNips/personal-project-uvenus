@@ -3,7 +3,7 @@
 	id="sidebar-open" 
 	:visible="slideBar" 
 	left
-	>
+	no-header>
 		<b-container fluid>
 			<b-row id="status-profile" class="my-3">
 				<b-col cols="5">
@@ -38,6 +38,11 @@
 					</b-collapse>
 				</b-col>
 			</b-row>
+			<b-row>
+				<b-button class="button-sidebar" @click="executeChangeSlideBar()">
+					<b-icon icon="chevron-double-right" class="mx-auto h1"/>
+				</b-button>
+			</b-row>
 		</b-container>
 	</b-sidebar>
 </template>
@@ -53,13 +58,18 @@ export default {
 		menu: {
 			type: Array,
 			require: true
+		},
+		changeSlideBar: {
+			type: Function,
 		}
 	},
-	data() {
-		return {
+	methods: {
+		executeChangeSlideBar() {
+			if(this.changeSlideBar) {
+				this.changeSlideBar()
+			}
 		
 		}
-	
 	}
 }
 </script>

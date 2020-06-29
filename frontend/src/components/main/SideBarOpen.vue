@@ -1,11 +1,10 @@
 <template>
 	<b-sidebar
-	id="sidebar-open" 
+	class="w-100"
 	:visible="slideBar" 
 	left
 	no-header>
-		<b-container fluid>
-			<b-row id="status-profile" class="my-3">
+			<b-row id="status-profile" class="m-0 p-0 my-3">
 				<b-col cols="5">
 					<b-img src="../../assets/profile.png" class="image-profile"/>
 				</b-col>
@@ -25,8 +24,8 @@
 					</b-container>
 				</b-col>
 			</b-row>
-			<b-row v-for="options in menu" :key="options.name">
-				<b-col :id="options.name" cols="12">
+			<b-row v-for="options in menu" :key="options.name" class="m-0 p-0">
+				<b-col :id="options.name" cols="10" class="mx-auto">
 					<b-button @click="options.collapsed = !options.collapsed" class="col-12 my-2">
 						<b-icon :icon="options.icon" class="h1 my-auto mr-3"/>
 						{{ options.name }}
@@ -38,12 +37,15 @@
 					</b-collapse>
 				</b-col>
 			</b-row>
-			<b-row>
-				<b-button class="button-sidebar" @click="executeChangeSlideBar()">
-					<b-icon icon="chevron-double-right" class="mx-auto h1"/>
-				</b-button>
-			</b-row>
-		</b-container>
+			<template v-slot:footer>
+				<b-row class="m-0 p-0 h-100">
+					<b-col cols="12" class="mx-auto m-0 p-0 h-100">
+						<b-button class="button-sidebar h-100" @click="executeChangeSlideBar()">
+							<b-icon icon="chevron-double-left" class="mx-auto h1"/>
+						</b-button>
+					</b-col>
+				</b-row>
+			</template>
 	</b-sidebar>
 </template>
 
@@ -75,4 +77,7 @@ export default {
 </script>
 
 <style>
+.b-sidebar-footer {
+	height: 100px;
+}
 </style>

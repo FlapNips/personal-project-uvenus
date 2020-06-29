@@ -30,7 +30,7 @@
 						<b-icon :icon="options.icon" class="h1 my-auto mr-3"/>
 						{{ options.name }}
 					</b-button>
-					<b-collapse v-model="options.collapsed" class="text-center">
+					<b-collapse v-model="options.collapsed" class="text-center" accordion="uniqueCollapse">
 						<b-button v-for="submenu in options.children" :key="submenu.name" class="col-10 mx-auto my-2">
 							{{ submenu.name }}
 						</b-button>

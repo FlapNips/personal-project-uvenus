@@ -2,8 +2,8 @@
 	<b-sidebar
 	class="w-100"
 	:visible="slideBar"
-	@click="executeChangeSlideBar()"
-	no-header>
+	no-header
+	v-click-outside="hideSlideBar">
 		<b-row id="status-profile" no-gutters class="my-3">
 			<b-col cols="5" class="p-2">
 				<b-img src="@/assets/profile.png" class="image-profile m-0 p-0"/>
@@ -73,6 +73,12 @@ export default {
 			}
 		
 		}
+	},
+	events: {
+		hideSlideBar: () => {
+			this.executeChangeSlideBar()
+		}
+	
 	}
 }
 </script>
@@ -83,10 +89,5 @@ export default {
 }
 .b-sidebar-footer {
 	height: 7em;
-}
-.image-profile  {
-	width: 100%;
-	max-width: 100%!important;
-	max-height: 100%!important;
 }
 </style>

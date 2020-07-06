@@ -112,10 +112,10 @@ export default {
 	position: fixed;
 	width: 5em;
 	min-height: 100%;
-	.image-profile {
+	.image-profile  {
 	width: 100%;
-	max-width: inherit;
-	max-height: inherit;
+	max-width: 100%!important;
+	max-height: 100%!important;
 	}
 	.button-sidebar {
 		width: 100%;
